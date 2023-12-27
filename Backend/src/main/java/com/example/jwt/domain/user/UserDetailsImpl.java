@@ -1,7 +1,12 @@
 package com.example.jwt.domain.user;
 
+import java.io.StringReader;
 import java.util.Collection;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.example.jwt.domain.role.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +30,10 @@ public record UserDetailsImpl(User user) implements UserDetails {
   public String getUsername() {
     return user.getEmail();
   }
-
+  public UUID getId(){return user.getId();}
+  public String getRoles() {
+    return user.getRoles().toString();
+  }
   @Override
   public boolean isAccountNonExpired() {
     return true;
