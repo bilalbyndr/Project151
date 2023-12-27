@@ -5,6 +5,8 @@ import com.example.jwt.domain.authority.dto.AuthorityDTO;
 import com.example.jwt.domain.role.Role;
 import com.example.jwt.domain.role.dto.RoleDTO;
 import com.example.jwt.domain.user.User;
+import com.example.jwt.domain.user.dtoAdmin.AdminDTO;
+import com.example.jwt.domain.user.dtoAdmin.AdminRegisterDTO;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,28 +16,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-15T13:29:37+0100",
+    date = "2023-12-27T09:48:13+0100",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
-
-    @Override
-    public User fromDTO(UserDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        User user = new User();
-
-        user.setId( dto.getId() );
-        user.setFirstName( dto.getFirstName() );
-        user.setLastName( dto.getLastName() );
-        user.setEmail( dto.getEmail() );
-        user.setRoles( roleDTOSetToRoleSet( dto.getRoles() ) );
-
-        return user;
-    }
 
     @Override
     public List<User> fromDTOs(List<UserDTO> dtos) {
@@ -66,37 +51,6 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public UserDTO toDTO(User BO) {
-        if ( BO == null ) {
-            return null;
-        }
-
-        UserDTO userDTO = new UserDTO();
-
-        userDTO.setId( BO.getId() );
-        userDTO.setFirstName( BO.getFirstName() );
-        userDTO.setLastName( BO.getLastName() );
-        userDTO.setEmail( BO.getEmail() );
-        userDTO.setRoles( roleSetToRoleDTOSet( BO.getRoles() ) );
-
-        return userDTO;
-    }
-
-    @Override
-    public List<UserDTO> toDTOs(List<User> BOs) {
-        if ( BOs == null ) {
-            return null;
-        }
-
-        List<UserDTO> list = new ArrayList<UserDTO>( BOs.size() );
-        for ( User user : BOs ) {
-            list.add( toDTO( user ) );
-        }
-
-        return list;
-    }
-
-    @Override
     public Set<UserDTO> toDTOs(Set<User> BOs) {
         if ( BOs == null ) {
             return null;
@@ -119,12 +73,104 @@ public class UserMapperImpl implements UserMapper {
         User user = new User();
 
         user.setId( dto.getId() );
+        user.setDateOfBirth( dto.getDateOfBirth() );
+        user.setAddress( dto.getAddress() );
         user.setFirstName( dto.getFirstName() );
         user.setLastName( dto.getLastName() );
         user.setEmail( dto.getEmail() );
         user.setPassword( dto.getPassword() );
 
         return user;
+    }
+
+    @Override
+    public User fromDTO(UserDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        User user = new User();
+
+        user.setId( dto.getId() );
+        user.setAddress( dto.getAddress() );
+        user.setSeeds( dto.getSeeds() );
+        user.setTotalSpend( dto.getTotalSpend() );
+        user.setRank( dto.getRank() );
+        user.setFirstName( dto.getFirstName() );
+        user.setLastName( dto.getLastName() );
+        user.setEmail( dto.getEmail() );
+        user.setRoles( roleDTOSetToRoleSet( dto.getRoles() ) );
+
+        return user;
+    }
+
+    @Override
+    public UserDTO toDTO(User BO) {
+        if ( BO == null ) {
+            return null;
+        }
+
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setId( BO.getId() );
+        userDTO.setAddress( BO.getAddress() );
+        userDTO.setSeeds( BO.getSeeds() );
+        userDTO.setTotalSpend( BO.getTotalSpend() );
+        userDTO.setFirstName( BO.getFirstName() );
+        userDTO.setLastName( BO.getLastName() );
+        userDTO.setEmail( BO.getEmail() );
+        userDTO.setRoles( roleSetToRoleDTOSet( BO.getRoles() ) );
+        userDTO.setRank( BO.getRank() );
+
+        return userDTO;
+    }
+
+    @Override
+    public AdminDTO toAdminDTO(User BO) {
+        if ( BO == null ) {
+            return null;
+        }
+
+        AdminDTO adminDTO = new AdminDTO();
+
+        adminDTO.setId( BO.getId() );
+        adminDTO.setFirstName( BO.getFirstName() );
+        adminDTO.setLastName( BO.getLastName() );
+        adminDTO.setEmail( BO.getEmail() );
+        adminDTO.setRoles( roleSetToRoleDTOSet( BO.getRoles() ) );
+
+        return adminDTO;
+    }
+
+    @Override
+    public User fromAdminRegisterDTO(AdminRegisterDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        User user = new User();
+
+        user.setId( dto.getId() );
+        user.setFirstName( dto.getFirstName() );
+        user.setLastName( dto.getLastName() );
+        user.setEmail( dto.getEmail() );
+        user.setPassword( dto.getPassword() );
+
+        return user;
+    }
+
+    @Override
+    public List<UserDTO> toDTOs(List<User> BOs) {
+        if ( BOs == null ) {
+            return null;
+        }
+
+        List<UserDTO> list = new ArrayList<UserDTO>( BOs.size() );
+        for ( User user : BOs ) {
+            list.add( toDTO( user ) );
+        }
+
+        return list;
     }
 
     protected Authority authorityDTOToAuthority(AuthorityDTO authorityDTO) {
