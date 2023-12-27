@@ -2,7 +2,7 @@ name: Build Automation
 
 on:
   pull_request:
-    branches: [ development, release, main ]
+    branches: [ develop, release, main ]
 
 jobs:
   build:
