@@ -1,0 +1,29 @@
+name: Continuous Integration
+
+on:
+  workflow_run:
+    workflows: ["Build Automation"]
+    types:
+      - completed
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: app-jar
+
+    - name: Integration Tests
+      run: ./gradlew test --tests "com.example.*"
