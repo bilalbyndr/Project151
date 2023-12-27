@@ -1,0 +1,8 @@
+# Use the openjdk version 17 image to run the jar file
+FROM openjdk:17
+# Copy the jar file from the build image to the new image
+COPY ./gradle/build/libs/*.jar spring-app.jar
+# Expose port 8080
+EXPOSE 8080
+# Run the jar file on container startup
+ENTRYPOINT ["java", "-jar", "spring-app.jar"]
