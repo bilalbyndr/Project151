@@ -27,7 +27,7 @@ jobs:
       working-directory: Backend
 
     - name: Run Docker-compose
-      run: docker-compose up --build
+      run: docker-compose up --build -d
 
     - name: Static code analysis
       run: ./gradlew sonarqube
