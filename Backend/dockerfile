@@ -1,8 +1,16 @@
+# Build the jar file
+FROM gradle:7.5.1-jdk17 AS build
+# Copy the source code to the build image
+COPY . .
+# make sure no jar files exist
+RUN rm -rf build/libs/*.jar
+# Build the jar file
+RUN ./gradlew clean bootJar
 # Use the openjdk version 17 image to run the jar file
 FROM openjdk:17
 # Copy the jar file from the build image to the new image
-COPY ./Backend/build/libs/*.jar spring-app.jar
+COPY --from=build /home/gradle/build/libs/*.jar /home/spring-app.jar
 # Expose port 8080
 EXPOSE 8080
 # Run the jar file on container startup
-ENTRYPOINT ["java", "-jar", "spring-app.jar"]
+ENTRYPOINT ["java", "-jar", "/home/spring-app.jar"]

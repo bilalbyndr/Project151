@@ -1,4 +1,4 @@
-name: Build Automation
+name: Build Automation for Backend Application
 
 on:
   pull_request:
@@ -12,33 +12,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'adopt'
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       working-directory: Backend
 
     - name: Build with Gradle
-      run: ./gradlew clean bootJar --no-daemon
+      run: ./gradlew clean bootJar
       working-directory: Backend
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-jar
-        path: Backend/build/libs/*.jar 
-
-    - name: run docker image
-      run: docker-compose up -d --build
+    - name: Run Docker-compose
+      run: docker-compose up --build
 
     - name: Static code analysis
       run: ./gradlew sonarqube
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       working-directory: Backend
 
     - name: Unit tests
