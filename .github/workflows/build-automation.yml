@@ -23,22 +23,14 @@ jobs:
       working-directory: Backend
 
     - name: Build with Gradle
-      run: ./gradlew clean bootJar --no-daemon
+      run: ./gradlew clean bootJar
       working-directory: Backend
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-jar
-        path: Backend/build/libs/*.jar 
-
-    - name: run docker image
-      run: docker-compose up -d --build
+    - name: Run Docker-compose
+      run: docker-compose up --build -d
 
     - name: Static code analysis
-      run: ./gradlew sonarqube
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: ./gradlew sonar
       working-directory: Backend
 
     - name: Unit tests
