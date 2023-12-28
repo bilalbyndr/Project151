@@ -30,7 +30,7 @@ jobs:
       run: docker-compose up --build -d
 
     - name: Static code analysis
-      run: ./gradlew sonarqube
+      run: ./gradlew sonar
       working-directory: Backend
 
     - name: Unit tests
