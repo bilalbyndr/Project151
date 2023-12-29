@@ -9,7 +9,14 @@ services:
       - "8080:8080"
     depends_on:
       - db
-
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
   db:
     image: postgres:16
     environment:
