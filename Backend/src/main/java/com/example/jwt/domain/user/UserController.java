@@ -81,34 +81,37 @@ public class UserController {
 
       return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
-  @PostMapping("/register")
-  public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
-   User user= userMapper.fromUserRegisterDTO(userRegisterDTO);
-    Role customerRole = roleRepository.findByName("CUSTOMER")
-            .orElseGet(() -> {
-              Role newRole = new Role();
-              newRole.setName("CUSTOMER");
-              return roleRepository.save(newRole);
-            });
-    Set<Authority> authorities = new HashSet<>();
-    String[] authorityNames = {"CAN_PLACE_ORDER", "CAN_RETRIEVE_PURCHASE_HISTORY", "CAN_RETRIEVE_PRODUCTS"};
-    for (String name : authorityNames) {
-      Authority authority = authorityRepository.findByName(name)
-              .orElseGet(() -> {
-                Authority newAuthority = new Authority();
-                newAuthority.setName(name);
-                return authorityRepository.save(newAuthority);
-              });
-      authorities.add(authority);
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+        User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
+
+        var role = roleRepository.findByName("CLIENT")
+                .orElseGet(() -> {
+                    var newRole = new Role();
+                    newRole.setName("CLIENT");
+                    return roleRepository.save(newRole);
+                });
+
+        Set<Authority> authority = new HashSet<>();
+        var authorities = new String[]{"CAN_PLACE_ORDER", "CAN_RETRIEVE_PURCHASE_HISTORY", "CAN_RETRIEVE_PRODUCTS"};
+        for (var authorityName : authorities) {
+            var authorityOptional = authorityRepository.findByName(authorityName)
+                    .orElseGet(() ->{
+                        var newAuthority = new Authority();
+                        newAuthority.setName(authorityName);
+                        return authorityRepository.save(newAuthority);
+                    });
+            authority.add(authorityOptional);
+        }
+
+
+        user.setRank(User.Rank.BRONZE);
+        role.setAuthorities(authority);
+        user.setRoles(Set.of(role));
+
+        var newUser = userService.register(user);
+        return new ResponseEntity<>(userMapper.toDTO(newUser), HttpStatus.CREATED);
     }
-    user.setRank(User.Rank.BRONZE);
-    // Associate authorities with the role
-    customerRole.setAuthorities(authorities);
-    // Assign the role to the user
-    user.setRoles(Collections.singleton(customerRole));
-    User f = userService.register(user);
-    return new ResponseEntity<>(userMapper.toDTO(f), HttpStatus.CREATED);
-  }
 
 
     @PostMapping("/registerAdmin")
@@ -161,6 +164,4 @@ public class UserController {
 
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
-
-
 }

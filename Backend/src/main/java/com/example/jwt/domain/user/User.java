@@ -15,6 +15,10 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User extends ExtendedAuditEntity {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private UUID id;
+
   @Column(name = "first_name")
   private String firstName;
 
@@ -108,7 +112,6 @@ public class User extends ExtendedAuditEntity {
   public enum Rank {
     BRONZE, SILVER, GOLD, PLATINUM, DIAMOND
   }
-
 
   public Rank getRank() {
     return rank;
