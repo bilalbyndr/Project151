@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy package.json and yarn.lock files
 COPY package.json yarn.lock ./
 # Install dependencies
-RUN yarn install
+RUN yarn install --frozen-lockfile
 # Copy the rest of the files
 COPY . .
 # Build the project
@@ -15,6 +15,6 @@ FROM nginx:stable-alpine
 # Copy the build folder from the react app to the nginx html folder
 COPY --from=builder /app/build /usr/share/nginx/html
 # Expose port 80
-EXPOSE 80
+EXPOSE 3000
 # Start nginx when the container has provisioned.
 CMD ["nginx", "-g", "daemon off;"]
