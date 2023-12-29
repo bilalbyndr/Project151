@@ -1,8 +1,6 @@
 //TODO: Implement a products page that is only accessible to authenticated users with the Authority "CAN_RETRIEVE_PRODUCTS"
 import React, {useEffect} from "react";
 import {Card} from "react-bootstrap";
-import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
 
 interface Product {
     id: string;
@@ -36,7 +34,7 @@ const Products = () => {
             }
         };
         fetchProducts()
-            .then(r => console.log("Products loaded"));
+            .then(p => console.log("Products loaded"));
 
     }, []);
 

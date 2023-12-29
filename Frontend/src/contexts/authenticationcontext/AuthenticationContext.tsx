@@ -32,7 +32,7 @@ export interface AuthenticationContextProviderProps {
 const AuthenticationContextProvider = ({children}: AuthenticationContextProviderProps) => {
   const api: AxiosInstance = AxiosUtility.getApi()
   const [principal, setPrincipal] = useState<User | undefined>();
-  const [password, setPassword] = useState("");
+  const [password] = useState("");
   const reducer = (state: ActionTypes, action: ActionTypes) => {
     switch (action) {
       case ActionTypes.LOADING:
