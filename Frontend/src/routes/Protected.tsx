@@ -4,7 +4,7 @@ import Authority from "../models/Authority";
 
 export interface ProtectedProps {
   authoritiesToGrantAccess: Authority["name"][];
-};
+}
 
 export const Protected = ({authoritiesToGrantAccess}: ProtectedProps) => {
   const {principal, hasAnyAuthority} = useAuth();
