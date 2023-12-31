@@ -32,7 +32,7 @@ export interface AuthenticationContextProviderProps {
 const AuthenticationContextProvider = ({children}: AuthenticationContextProviderProps) => {
   const api: AxiosInstance = AxiosUtility.getApi()
   const [principal, setPrincipal] = useState<User | undefined>();
-  const [password] = useState("");
+  const [password] = useState("password");
   const reducer = (state: ActionTypes, action: ActionTypes) => {
     switch (action) {
       case ActionTypes.LOADING:
@@ -46,7 +46,8 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
   const [state, dispatch] = useReducer(reducer, ActionTypes.LOADING)
   const authenticate = async () => {
     try {
-      const response = await api.post('/users/login', {"email": "max@mustermann","password": password});
+    //onst "mail="max@mustermann.com";"email"password"
+  const response = await api.post('/users/login', {"email":"max@mustermann.com" ,"password": password});
       if (response.headers.hasAuthorization) {
         //@ts-ignore
         localStorage.setItem('token', response.headers.getAuthorization());

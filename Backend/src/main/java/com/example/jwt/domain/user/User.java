@@ -15,10 +15,6 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User extends ExtendedAuditEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private UUID id;
-
   @Column(name = "first_name")
   private String firstName;
 
@@ -31,12 +27,16 @@ public class User extends ExtendedAuditEntity {
   private Rank rank;
   @Column(name = "password")
   private String password;
+
+  // Date of Birth with type: LocalDate : example :"1990-03-15"
   @Column(name = "dateOfBirth")
   private LocalDate dateOfBirth;
   @OneToMany(mappedBy = "user")
   private List<Purchase> purchases;
   @Column(name = "address")
   private String address;
+
+  // By crating (enum) of Rank
   @Column(name="seeds")
   private int seeds;
   @Column(name="totalSpent")
@@ -109,9 +109,12 @@ public class User extends ExtendedAuditEntity {
     this.totalSpend = totalSpend;
   }
 
+
+  // defining the Ranks that can be easily referenced in code.
   public enum Rank {
     BRONZE, SILVER, GOLD, PLATINUM, DIAMOND
   }
+
 
   public Rank getRank() {
     return rank;

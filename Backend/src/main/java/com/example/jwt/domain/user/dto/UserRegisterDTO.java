@@ -5,6 +5,7 @@ import com.example.jwt.domain.authority.Authority;
 import com.example.jwt.domain.authority.dto.AuthorityDTO;
 import com.example.jwt.domain.role.Role;
 import com.example.jwt.domain.role.dto.RoleDTO;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -13,20 +14,21 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class UserRegisterDTO extends ExtendedDTO {
-@NotNull
+@NotNull(message = "{m.ll}")
   private String firstName;
-@NotNull
+@NotNull(message = "Last name must not be null")
   private String lastName;
 
-  @Email
+  @NotNull(message = "email is missing")
+  @Email(message = "Write the email with a right format")
   private String email;
-@NotNull
+@NotNull(message = "Password is missing")
   private String password;
 
-  @NotNull
+  @NotNull(message = "Address is missing")
   private String address;
 
-  @NotNull
+  @NotNull(message = "Date of birth is missing")
   private LocalDate dateOfBirth;
   public UserRegisterDTO() {
   }
