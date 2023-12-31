@@ -74,7 +74,7 @@ public class UserController {
 
 //Get the customer details by just injecting jwt in the header
   @GetMapping("/profile")
-
+  @PreAuthorize("hasAuthority('CAN_RETRIEVE_PRODUCTS')")
   public ResponseEntity<UserDTO> getMyUserId(@AuthenticationPrincipal UserDetailsImpl userDetails) {
     User user=userService.findById(userDetails.getId());
 

@@ -8,5 +8,8 @@ export interface ProtectedProps {
 
 export const Protected = ({authoritiesToGrantAccess}: ProtectedProps) => {
   const {principal, hasAnyAuthority} = useAuth();
+  console.log("Principal:", principal);
+  console.log("Authorities To Grant Access:", authoritiesToGrantAccess);
+  console.log("Has Any Authority:", hasAnyAuthority(authoritiesToGrantAccess));
   return principal && hasAnyAuthority(authoritiesToGrantAccess) ? <Outlet/> : <Navigate to={"/login"}/>
 };
