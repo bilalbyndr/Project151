@@ -28,14 +28,14 @@ public class PurchaseController {
         this.purchaseService = purchaseService;
         this.userMapper = userMapper;
     }
-
+//A3
     @PostMapping("/buy")
     @PreAuthorize("hasAuthority('CAN_PLACE_ORDER')")
     public ResponseEntity createPurchase(@AuthenticationPrincipal UserDetailsImpl userDetails, @Valid @RequestBody PurchaseDTO purchaseDTO) {
       UUID userid=userDetails.getId();//  UUID userId=userDetails.getId();// Get the user ID from the JWT token
         purchaseService.createPurchase(userid, purchaseDTO);
         return  new ResponseEntity<>(HttpStatus.OK);}
-
+//A5
     @GetMapping("/myHistory")
     @PreAuthorize("hasAuthority('CAN_RETRIEVE_PURCHASE_HISTORY')")
     public ResponseEntity<List<PurchasesSummaryDTO>> getTeaPurchaseSummary(@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -45,6 +45,7 @@ public class PurchaseController {
 
         return new ResponseEntity<>(teaPurchaseSummary, HttpStatus.OK);
     }
+    //A4
 
     @GetMapping("/HighestRevenue")
    // @PreAuthorize("hasRole('ADMIN')")
@@ -57,6 +58,7 @@ public class PurchaseController {
     } else {
         return ResponseEntity.notFound().build();
     }}
+    //A4
     @GetMapping("/topcountry")
     // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> getTopCountryOfOriginLastXDays(@RequestParam(name = "days") int numberOfDays) {

@@ -6,7 +6,7 @@ import org.w3c.dom.Text;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
-
+//A2
 @Entity
 @Table(name = "product")
 public class Product {

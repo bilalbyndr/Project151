@@ -47,14 +47,18 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
   const authenticate = async () => {
     try {
     //onst "mail="max@mustermann.com";"email"password"
-  const response = await api.post('/users/login', {"email":"max@mustermann.com" ,"password": password});
-      if (response.headers.hasAuthorization) {
-        //@ts-ignore
-        localStorage.setItem('token', response.headers.getAuthorization());
+  const loginresponse = await api.post('/users/login', {"email":"max@mustermann.com" ,"password": password});
+      if (loginresponse.headers.hasAuthorization) {
+    //@ts-ignore
+      localStorage.setItem('token', loginresponse.headers.getAuthorization());
 
         //TODO: call backend to get principal (e.g through endpoint /users/profile) and pass it to setPrincipal(). The current Max Mustermann is just a mock!
 
-        const response = await api.get('/users/profile');
+        const response = await api.get('/users/profile', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Use the Bearer token stored in localStorage
+          },
+        });
         const user: User = response.data;
 
         if(response) {
@@ -65,8 +69,7 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
             email: user.email,
             roles: user.roles
           });
-        }
-        dispatch(ActionTypes.AUTHENTICATED)
+        }  dispatch(ActionTypes.AUTHENTICATED)
       } else {
         dispatch(ActionTypes.FAILED)
       }
@@ -75,14 +78,14 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
     }
   }
 
-  useEffect(() => {
-    authenticate()
-  }, [])
+ useEffect(() => {
+    authenticate(); // Call the authenticate method
+  }, []);
 
   //TODO: implement hasAnyAuthority() method. Check if principal has any of the authorities passed as parameter
   const hasAnyAuthority = (authorities: Authority["name"][]): boolean => {
     if(principal) {
-
+console.log(principal);
       for(const authority of authorities) {
 
         for(const role of principal.roles) {

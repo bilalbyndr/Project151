@@ -34,6 +34,7 @@ private AuthorityRepository authorityRepository;
             .orElseThrow(() -> new UsernameNotFoundException(email));
   }
 
+
   @Override
   public User register(User user) {
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

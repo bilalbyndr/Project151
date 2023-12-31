@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import com.example.jwt.domain.user.dtoAdmin.AdminDTO;
 import com.example.jwt.domain.user.dtoAdmin.AdminRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,7 +47,7 @@ public class UserController {
   private final UserMapper userMapper;
   private RoleRepository roleRepository;
   private AuthorityRepository authorityRepository;
-
+private MessageSource messageSource;
   @Autowired
   public UserController(UserService userService, UserMapper userMapper, RoleRepository roleRepository
   , AuthorityRepository authorityRepository) {

@@ -14,21 +14,21 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class UserRegisterDTO extends ExtendedDTO {
-@NotNull(message = "{m.ll}")
+@NotNull(message = "{m.firstname}")
   private String firstName;
-@NotNull(message = "Last name must not be null")
+@NotNull(message = "{m.lastname}")
   private String lastName;
 
-  @NotNull(message = "email is missing")
-  @Email(message = "Write the email with a right format")
+  @NotNull(message = "{m.email}")
+  @Email(message = "{m.format.email}")
   private String email;
-@NotNull(message = "Password is missing")
+@NotNull(message = "{m.password}")
   private String password;
 
-  @NotNull(message = "Address is missing")
+  @NotNull(message = "{m.address}")
   private String address;
 
-  @NotNull(message = "Date of birth is missing")
+  @NotNull(message = "{m.birth}")
   private LocalDate dateOfBirth;
   public UserRegisterDTO() {
   }

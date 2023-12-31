@@ -6,7 +6,7 @@ import com.example.jwt.domain.user.User;
 
 import javax.persistence.*;
 import java.util.UUID;
-
+//A3
 @Entity
 @Table(name = "purchase")
 public class Purchase extends ExtendedAuditEntity{
