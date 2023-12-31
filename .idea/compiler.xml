@@ -13,8 +13,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="jwt" target="17" />
-      <module name="jwt.main" target="17" />
-      <module name="jwt.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
