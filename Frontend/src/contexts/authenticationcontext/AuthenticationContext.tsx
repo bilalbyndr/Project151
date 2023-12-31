@@ -59,7 +59,7 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
         //TODO: call backend to get principal (e.g through endpoint /users/profile) and pass it to setPrincipal(). The current Max Mustermann is just a mock!
         const response = await api.get('/users/profile', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`, // Use the Bearer token stored in localStorage
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
         const user: User = response.data;
