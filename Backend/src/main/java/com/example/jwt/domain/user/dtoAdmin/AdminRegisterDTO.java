@@ -7,15 +7,17 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class AdminRegisterDTO extends ExtendedDTO {
-    @NotNull
+    @NotNull(message = "{m.firstname}")
     private String firstName;
-    @NotNull
+    @NotNull(message = "{m.lastname}")
     private String lastName;
 
-    @Email
+    @NotNull(message = "{m.email}")
+    @Email(message = "{m.format.email}")
     private String email;
-    @NotNull
+    @NotNull(message = "{m.password}")
     private String password;
+
 
     public AdminRegisterDTO(UUID id, String firstName, String lastName, String email, String password) {
         super(id);
