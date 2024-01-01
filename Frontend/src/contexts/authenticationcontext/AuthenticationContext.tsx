@@ -79,6 +79,7 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
       } else {
         dispatch(ActionTypes.FAILED)
       }
+      redirect("/products")
     } catch {
       dispatch(ActionTypes.FAILED)
     }
@@ -87,6 +88,7 @@ const AuthenticationContextProvider = ({children}: AuthenticationContextProvider
   authenticate().then(r => console.log("Authenticated"));
 
   }, [api, password]);
+
 
   useEffect(() => {
     hasAnyAuthority(["CAN_RETRIEVE_PRODUCTS"]);
