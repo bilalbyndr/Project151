@@ -11,5 +11,8 @@
         <module name="jwt.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jwt" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

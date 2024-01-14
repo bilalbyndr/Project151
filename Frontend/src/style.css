@@ -1,0 +1,40 @@
+.cards-container {
+    padding: 20px;
+}
+
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    border: 2px solid #3498db; /* You can change the border color here */
+    border-radius: 10px;
+    width: calc(25% - 20px); /* 25% width for 4 cards per row, minus gap */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+    background-color: #f7dc6f; /* You can change the background color here */
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.card-subtitle,
+.card-description,
+.card-price,
+.card-date {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 20px); /* 50% width for 2 cards per row on smaller screens */
+    }
+}
